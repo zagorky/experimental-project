@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { validateSubmit } from '~utils/validation.ts';
 import { FormDataType } from '~types/types.ts';
 import styles from './styles.module.css';
 
@@ -17,9 +16,6 @@ export function UseStateForm() {
         className={styles.form}
         onSubmit={(event) => {
           event.preventDefault();
-          if (!validateSubmit(name, email)) {
-            return;
-          }
           setFormData({ name, email });
         }}
       >
