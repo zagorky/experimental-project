@@ -18,44 +18,48 @@ export const ShadcnForm = () => {
     },
   });
 
-  const onSubmit = (data: UserFormDataType) => {
+  const onSubmit = (data: UserFormDataType): void => {
     console.log(data);
     addUser(data);
+    form.reset();
   };
 
   console.log('Shadcn form render');
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          name={'name'}
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Your Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        ></FormField>
-        <FormField
-          name={'email'}
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Your Email</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        ></FormField>
-        <Button type={'submit'}>Submit</Button>
-      </form>
-    </Form>
+    <>
+      <h1>Shadcn Form</h1>
+      <Form {...form}>
+        <form className={'p-4'} onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            name={'name'}
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Your Name</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          ></FormField>
+          <FormField
+            name={'email'}
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Your Email</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          ></FormField>
+          <Button type={'submit'}>Submit</Button>
+        </form>
+      </Form>
+    </>
   );
 };

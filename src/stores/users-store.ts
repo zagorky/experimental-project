@@ -4,13 +4,13 @@ import { z } from 'zod';
 import { UserFormData } from '~types/schemas.ts';
 
 interface UserStoreType {
-  users: Map<string, UserType>;
+  users: Set<UserType>;
   addUser: (user: UserType) => void;
   error: z.ZodError<UserFormDataType> | null;
 }
 
 export const useUsersStore = create<UserStoreType>((set) => ({
-  users: new Map(),
+  users: new Set(),
   error: null,
   addUser: (userData) => {
     const resul = UserFormData.safeParse(userData);
@@ -21,9 +21,8 @@ export const useUsersStore = create<UserStoreType>((set) => ({
     }
 
     set((state) => {
-      const id = crypto.randomUUID();
-      const newUsers = new Map(state.users);
-      newUsers.set(id, userData);
+      const newUsers = new Set(state.users);
+      newUsers.add(userData);
       return { users: newUsers, error: null };
     });
   },
