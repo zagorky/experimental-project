@@ -1,6 +1,6 @@
 import { UserType } from '~types/types.ts';
 
-export const UserRenderer = ({ users }: { users: Set<UserType> }) => {
+export const UserRenderer = ({ users }: { users: Map<string, UserType> }) => {
   const usersArray = Array.from(users.values());
   return (
     <>

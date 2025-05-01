@@ -28,7 +28,7 @@ export const ShadcnForm = () => {
 
   return (
     <>
-      <h1>Shadcn Form</h1>
+      <h2 className={'font-bold text-pink-700 text-2xl'}>Shadcn Form</h2>
       <Form {...form}>
         <form className={'p-4'} onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

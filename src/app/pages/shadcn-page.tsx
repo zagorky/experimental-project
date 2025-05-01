@@ -7,7 +7,7 @@ export const ShadcnPage = () => {
 
   return (
     <>
-      <ShadcnForm></ShadcnForm>
+      <ShadcnForm />
       <UserRenderer users={users} />
     </>
   );
