@@ -5,7 +5,8 @@ import { UserType } from '~types/types.ts';
 export function UseStateForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [formData, setFormData] = useState({ name: '', email: '' });
+  const id = crypto.randomUUID();
+  const [formData, setFormData] = useState({ name: '', email: '', id });
 
   console.log('Use state form render');
 
@@ -16,7 +17,7 @@ export function UseStateForm() {
         className={styles.form}
         onSubmit={(event) => {
           event.preventDefault();
-          setFormData({ name, email });
+          setFormData({ name, email, id });
         }}
       >
         <label htmlFor={'nameUS'}>
