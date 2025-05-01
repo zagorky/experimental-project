@@ -6,10 +6,12 @@ import styles from '~components/styles.module.css';
 export function SignalForm() {
   const name = useSignal('');
   const email = useSignal('');
+  const id = crypto.randomUUID();
 
   const formValues = useSignal({
     email: email.value,
     name: name.value,
+    id: id,
   });
 
   console.log('Signal form render');
@@ -21,7 +23,7 @@ export function SignalForm() {
         className={styles.form}
         onSubmit={(event) => {
           event.preventDefault();
-          formValues.value = { name: name.value, email: email.value };
+          formValues.value = { name: name.value, email: email.value, id: id };
         }}
       >
         <label htmlFor={'name'}>
