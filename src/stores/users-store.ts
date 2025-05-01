@@ -2,28 +2,35 @@ import { create } from 'zustand';
 import { UserFormDataType, UserType } from '~types/types.ts';
 import { z } from 'zod';
 import { UserFormData } from '~types/schemas.ts';
+import { devtools } from 'zustand/middleware';
 
 interface UserStoreType {
-  users: Set<UserType>;
+  users: Map<string, UserType>;
   addUser: (user: UserType) => void;
   error: z.ZodError<UserFormDataType> | null;
 }
 
-export const useUsersStore = create<UserStoreType>((set) => ({
-  users: new Set(),
-  error: null,
-  addUser: (userData) => {
-    const resul = UserFormData.safeParse(userData);
+export const useUsersStore = create<UserStoreType>()(
+  devtools(
+    (set) => ({
+      users: new Map(),
+      error: null,
+      addUser: (userData) => {
+        const result = UserFormData.safeParse(userData);
+        console.log(result);
+        if (!result.success) {
+          set({ error: result.error });
+          return;
+        }
 
-    if (resul.error) {
-      set({ error: resul.error });
-      return;
-    }
-
-    set((state) => {
-      const newUsers = new Set(state.users);
-      newUsers.add(userData);
-      return { users: newUsers, error: null };
-    });
-  },
-}));
+        set((state) => {
+          const newUsers = new Map(state.users);
+          const id = crypto.randomUUID();
+          newUsers.set(id, { ...userData, id });
+          return { users: newUsers, error: null };
+        });
+      },
+    }),
+    { name: 'UserStore' },
+  ),
+);

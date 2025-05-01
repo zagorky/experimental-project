@@ -1,8 +1,7 @@
 import { UserType } from '~types/types.ts';
 
 export const UserRenderer = ({ users }: { users: Set<UserType> }) => {
-  const usersArray = [...users];
-
+  const usersArray = Array.from(users.values());
   return (
     <>
       {usersArray.length > 0 && (
@@ -10,7 +9,7 @@ export const UserRenderer = ({ users }: { users: Set<UserType> }) => {
           <h2>User List</h2>
           <ul>
             {usersArray.map((user) => (
-              <li key={`${user.name}-${user.email}`}>
+              <li key={user.id}>
                 {user.name} {user.email}
               </li>
             ))}
