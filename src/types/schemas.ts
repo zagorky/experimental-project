@@ -15,4 +15,12 @@ export const UserFormData = z.object({
     .min(MIN_LENGTH, { message: `Name must be at least ${MIN_LENGTH.toString()} symbols` })
     .max(MAX_LENGTH, { message: `Name must be at least less than ${MAX_LENGTH.toString()} symbols` }),
   email: z.string().email(),
+  id: z.string(),
+});
+
+export const Posts = z.object({
+  userId: z.number(),
+  id: z.number(),
+  title: z.string(),
+  body: z.string(),
 });

@@ -45,6 +45,16 @@ export const AppRouter = createBrowserRouter([
           };
         },
       },
+      {
+        path: '/posts',
+        async lazy() {
+          const { PostsPage } = await import('./pages/posts-page.tsx');
+
+          return {
+            element: <PostsPage />,
+          };
+        },
+      },
     ],
   },
 ]);
