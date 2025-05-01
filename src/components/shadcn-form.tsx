@@ -15,6 +15,7 @@ export const ShadcnForm = () => {
     defaultValues: {
       name: '',
       email: '',
+      id: crypto.randomUUID(),
     },
   });
 

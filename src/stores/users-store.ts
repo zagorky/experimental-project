@@ -25,8 +25,7 @@ export const useUsersStore = create<UserStoreType>()(
 
         set((state) => {
           const newUsers = new Map(state.users);
-          const id = crypto.randomUUID();
-          newUsers.set(id, { ...userData, id });
+          newUsers.set(userData.id, { ...userData });
           return { users: newUsers, error: null };
         });
       },
