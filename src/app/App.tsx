@@ -1,16 +1,9 @@
 import './App.css';
-import { ShadcnForm } from '~components/shadcn-form.tsx';
-import { UserRenderer } from '~components/user-renderer.tsx';
-import { useUsersStore } from '~stores/users-store.ts';
+import { RouterProvider } from 'react-router/dom';
+import { AppRouter } from '~app/router.tsx';
 
 function App() {
-  const users = useUsersStore((state) => state.users);
-  return (
-    <section>
-      <ShadcnForm />
-      <UserRenderer users={users} />
-    </section>
-  );
+  return <RouterProvider router={AppRouter} />;
 }
 
 export default App;
