@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { FormDataType } from '~types/types.ts';
 import styles from './styles.module.css';
+import { UserType } from '~types/types.ts';
 
 export function UseStateForm() {
   const [name, setName] = useState('');
@@ -52,7 +52,7 @@ export function UseStateForm() {
   );
 }
 
-function CurrentValue({ name, email }: FormDataType) {
+function CurrentValue({ name, email }: UserType) {
   return (
     <p>
       Текущее значение:
