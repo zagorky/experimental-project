@@ -31,7 +31,7 @@ export function UseStateForm() {
             }}
           />
         </label>
-        <label htmlFor={'emailUS'}>
+        <label htmlFor={'emailUS'} className={styles.label}>
           Email Address
           <input
             className={styles.input}
@@ -43,7 +43,9 @@ export function UseStateForm() {
             }}
           />
         </label>
-        <button type="submit">Submit</button>
+        <button className={styles.button} type="submit">
+          Submit
+        </button>
       </form>
       <CurrentValue {...formData} />
     </>

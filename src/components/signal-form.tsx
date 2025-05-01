@@ -1,7 +1,7 @@
 import { useSignal } from '@preact/signals-react';
-import styles from '~components/styles.module.css';
 import { useSignals } from '@preact/signals-react/runtime';
 import { SignalFormDataType } from '~types/types.ts';
+import styles from '~components/styles.module.css';
 
 export function SignalForm() {
   const name = useSignal('');
@@ -35,7 +35,7 @@ export function SignalForm() {
             }}
           />
         </label>
-        <label htmlFor={'email'}>
+        <label className={styles.label} htmlFor={'email'}>
           Email Address
           <input
             className={styles.input}

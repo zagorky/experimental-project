@@ -5,8 +5,23 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"],
+      "~components/*": ["src/components/*"],
+      "~config/*": ["src/config/*"],
+      "~features/*": ["src/features/*"],
+      "~hooks/*": ["src/hooks/*"],
+      "~lib/*": ["src/lib/*"],
+      "~stores/*": ["src/stores/*"],
+      "~testing/*": ["src/testing/*"],
+      "~types/*": ["src/types/*"],
+      "~utils/*": ["src/utils/*"],
+      "~app/*": ["src/app/*"],
+    },
 
     /* Bundler mode */
+    "esModuleInterop": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
@@ -20,5 +35,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts","eslint.config.ts"]
 }
