@@ -31,7 +31,7 @@ export const ShadcnForm = () => {
     <>
       <h2 className={'font-bold text-pink-700 text-2xl'}>Shadcn Form</h2>
       <Form {...form}>
-        <form className={'p-4'} onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
+        <form className={'p-4'} onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             name={'name'}
             control={form.control}
