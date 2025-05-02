@@ -30,3 +30,12 @@ export const Car = z.object({
   color: z.string(),
   id: z.number(),
 });
+
+export const AddCarFormData = z.object({
+  name: z
+    .string()
+    .min(MIN_LENGTH, { message: `Name must be at least ${MIN_LENGTH.toString()} symbols` })
+    .max(MAX_LENGTH, { message: `Name must be at least less than ${MAX_LENGTH.toString()} symbols` }),
+  color: z.string(),
+  id: z.string(),
+});

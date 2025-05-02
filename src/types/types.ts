@@ -1,6 +1,6 @@
 import { Signal } from '@preact/signals-react';
 import { z } from 'zod';
-import { Car, Posts, User, UserFormData } from '~types/schemas.ts';
+import { AddCarFormData, Car, Posts, User, UserFormData } from '~types/schemas.ts';
 
 export interface SignalFormDataType {
   signal: Signal<UserType>;
@@ -21,3 +21,5 @@ export interface RequestConfigType {
 }
 
 export type CarType = z.infer<typeof Car>;
+
+export type AddCarFormDataType = z.infer<typeof AddCarFormData>;
