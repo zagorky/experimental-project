@@ -6,16 +6,18 @@ import { Loader } from '~components/ui/loader.tsx';
 import { Car } from '~components/car.tsx';
 import { ZodError } from 'zod';
 import { AddCarForm } from '~components/add-car-form.tsx';
+import { GenerateCarsButton } from '~components/generate-cars-button.tsx';
 
 export const AsyncRacePage = () => {
   const { data, error, isLoading } = useSWR<CarType[], ZodError>(ASYNC_RACE_GARAGE_ENDPOINT, fetcher);
-
+  console.log(data);
   return (
     <div>
       <h2 className={'font-bold text-pink-700 text-2xl'}>Garage</h2>
       {isLoading && <Loader />}
       {error && <h3>Error</h3>}
       <AddCarForm />
+      <GenerateCarsButton />
       {!data ? (
         <div>Nothing to render</div>
       ) : (

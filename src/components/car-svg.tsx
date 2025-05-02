@@ -1,6 +1,6 @@
 export const CarSvg = ({ color }: { color: string }) => {
   return (
-    <svg width={50} enableBackground="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <svg width={40} enableBackground="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
       <g id="_x30_3_x2C__cat_x2C__kitty_x2C__animal_x2C__feline_x2C__animals">
         <g id="XMLID_737_">
           <path
