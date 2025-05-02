@@ -24,3 +24,9 @@ export const Posts = z.object({
   title: z.string(),
   body: z.string(),
 });
+
+export const Car = z.object({
+  name: z.string(),
+  color: z.string(),
+  id: z.number(),
+});
