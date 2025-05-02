@@ -10,7 +10,7 @@ import { GenerateCarsButton } from '~components/generate-cars-button.tsx';
 
 export const AsyncRacePage = () => {
   const { data, error, isLoading } = useSWR<CarType[], ZodError>(ASYNC_RACE_GARAGE_ENDPOINT, fetcher);
-  console.log(data);
+
   return (
     <div>
       <h2 className={'font-bold text-pink-700 text-2xl'}>Garage</h2>

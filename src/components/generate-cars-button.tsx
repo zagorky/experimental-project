@@ -1,12 +1,26 @@
 import { Button } from '~components/ui/button.tsx';
+import { fetcher } from '~utils/fetcher.ts';
+import { ASYNC_RACE_GARAGE_ENDPOINT, requestConfig } from '~config/endpoints.ts';
+import { useSWRConfig } from 'swr';
 
 export const GenerateCarsButton = () => {
-  const handleOnClick = () => {
+  const { mutate } = useSWRConfig();
+
+  const onClick = async () => {
     const cars = generateRandomCars();
-    console.log(cars);
+    try {
+      await Promise.all(
+        cars.map((car) =>
+          fetcher(ASYNC_RACE_GARAGE_ENDPOINT, requestConfig.post({ name: car.name, color: car.color })),
+        ),
+      );
+      await mutate(ASYNC_RACE_GARAGE_ENDPOINT);
+    } catch (error) {
+      console.error('Failed to generate cars:', error);
+    }
   };
 
-  return <Button onClick={handleOnClick}>Generate Cars</Button>;
+  return <Button onClick={onClick}>Generate Cars</Button>;
 };
 
 const carBrands = [
@@ -46,13 +60,17 @@ const carModels = [
 ];
 
 function getRandomColor(): string {
+  const min = 100;
+  const max = 255;
+  const radix = 16;
+  const maxLength = 2;
   const randomInRange = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-  const toHex = (num: number) => num.toString(16).padStart(2, '0');
+  const toHex = (num: number) => num.toString(radix).padStart(maxLength, '0');
 
-  const r = randomInRange(100, 255);
-  const g = randomInRange(100, 255);
-  const b = randomInRange(100, 255);
+  const r = randomInRange(min, max);
+  const g = randomInRange(min, max);
+  const b = randomInRange(min, max);
 
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
 }
