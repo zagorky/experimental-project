@@ -10,7 +10,7 @@ import { CarForm } from '~components/car-form.tsx';
 
 export const AsyncRacePage = () => {
   const { data, error, isLoading } = useSWR<CarType[], ZodError>(ASYNC_RACE_GARAGE_ENDPOINT, fetcher);
-
+  console.log('AsyncRacePage render');
   return (
     <div>
       <h2 className={'font-bold text-pink-700 text-2xl'}>Garage</h2>
