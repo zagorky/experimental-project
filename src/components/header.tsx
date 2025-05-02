@@ -5,6 +5,7 @@ import {
   NavigationMenuList,
 } from '~components/ui/navigation-menu.tsx';
 import { Link } from 'react-router';
+import { pathes } from '~config/routes-config.ts';
 
 export const Header = () => {
   return (
@@ -12,27 +13,32 @@ export const Header = () => {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link to="/">Main</Link>
+            <Link to={pathes.main}>Main</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link to="/state">UseState</Link>
+            <Link to={pathes.state}>UseState</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link to="/signals">Signals</Link>
+            <Link to={pathes.signals}>Signals</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link to="/shadcn">Shadcn</Link>
+            <Link to={pathes.shadcn}>Shadcn</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link to="/posts">Posts</Link>
+            <Link to={pathes.posts}>Posts</Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Link to={pathes['async-race']}>Async Race</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>

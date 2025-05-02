@@ -1,11 +1,12 @@
 import useSWR from 'swr';
-import { POSTS_ENDPOINT } from '~lib/posts-consts.ts';
+import { POSTS_ENDPOINT } from '~config/endpoints.ts';
 import { fetcher } from '~utils/fetcher.ts';
 import { PostType } from '~types/types.ts';
 import { Loader } from '~components/ui/loader.tsx';
+import { ZodError } from 'zod';
 
 export const PostsPage = () => {
-  const { data, error, isLoading } = useSWR<PostType[], unknown>(POSTS_ENDPOINT, fetcher);
+  const { data, error, isLoading } = useSWR<PostType[], ZodError>(POSTS_ENDPOINT, fetcher);
 
   return (
     <>
