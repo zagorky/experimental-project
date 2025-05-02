@@ -6,8 +6,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '~components/ui/input.tsx';
 import { Button } from '~components/ui/button.tsx';
 import { useSWRConfig } from 'swr';
-import { ASYNC_RACE_GARAGE_ENDPOINT, requestConfig } from '~config/endpoints.ts';
+import { ASYNC_RACE_GARAGE_ENDPOINT } from '~config/endpoints.ts';
 import { fetcher } from '~utils/fetcher.ts';
+import { requestConfig } from '~config/request-config.ts';
 
 export const AddCarForm = () => {
   const form = useForm<AddCarFormDataType>({
@@ -15,7 +16,7 @@ export const AddCarForm = () => {
     defaultValues: {
       name: '',
       color: '#d9458c',
-      id: '',
+      id: 0,
     },
   });
 
@@ -39,7 +40,7 @@ export const AddCarForm = () => {
 
   return (
     <Form {...form}>
-      <form className={'p-4 flex flex-row gap-3 justify-center'} onSubmit={form.handleSubmit(onSubmit)}>
+      <form className={'p-4 flex flex-row gap-3 justify-center'} onSubmit={() => form.handleSubmit(onSubmit)}>
         <FormField
           name={'name'}
           control={form.control}

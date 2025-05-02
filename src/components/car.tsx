@@ -2,7 +2,8 @@ import { AddCarFormDataType, CarType } from '~types/types.ts';
 import { CarSvg } from '~components/car-svg.tsx';
 import { useSWRConfig } from 'swr';
 import { fetcher } from '~utils/fetcher.ts';
-import { ASYNC_RACE_GARAGE_ENDPOINT, requestConfig } from '~config/endpoints.ts';
+import { ASYNC_RACE_GARAGE_ENDPOINT } from '~config/endpoints.ts';
+import { requestConfig } from '~config/request-config.ts';
 
 export const Car = (carData: CarType) => {
   const { name, id, color } = carData;
@@ -20,7 +21,7 @@ export const Car = (carData: CarType) => {
   const onEdit = async (data: AddCarFormDataType) => {
     try {
       await fetcher(
-        ASYNC_RACE_GARAGE_ENDPOINT + `/${data.id}`,
+        ASYNC_RACE_GARAGE_ENDPOINT + `/${data.id.toString()}`,
         requestConfig.patch({
           name: data.name,
           color: data.color,
@@ -39,7 +40,7 @@ export const Car = (carData: CarType) => {
           className={'cursor-pointer'}
           type="button"
           onClick={() => {
-            onDelete(id);
+            void onDelete(id);
           }}
         >
           ✖️
@@ -48,7 +49,7 @@ export const Car = (carData: CarType) => {
           className={'cursor-pointer'}
           type="button"
           onClick={() => {
-            onEdit({ name, color, id });
+            void onEdit({ name, color, id });
           }}
         >
           ✏️
