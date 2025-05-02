@@ -17,7 +17,7 @@ export function getRandomColor(): string {
 }
 
 export function generateRandomCars() {
-  const numberOfNewCars = 10;
+  const numberOfNewCars = 5;
   const cars = [];
   for (let i = 0; i < numberOfNewCars; i += 1) {
     const brand = carBrands[Math.floor(Math.random() * carBrands.length)];

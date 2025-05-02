@@ -22,5 +22,5 @@ export const GenerateCarsButton = () => {
     }
   };
 
-  return <Button onClick={() => void onClick}>Generate Cars</Button>;
+  return <Button onClick={() => void onClick()}>Generate Cars</Button>;
 };

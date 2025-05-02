@@ -1,4 +1,4 @@
-import { AddCarFormDataType, CarType } from '~types/types.ts';
+import { CarType } from '~types/types.ts';
 import { CarSvg } from '~components/car-svg.tsx';
 import { useSWRConfig } from 'swr';
 import { fetcher } from '~utils/fetcher.ts';
@@ -18,7 +18,7 @@ export const Car = (carData: CarType) => {
     }
   };
 
-  const onEdit = async (data: AddCarFormDataType) => {
+  const onEdit = async (data: CarType) => {
     try {
       await fetcher(
         ASYNC_RACE_GARAGE_ENDPOINT + `/${data.id.toString()}`,

@@ -16,7 +16,6 @@ export const AddCarForm = () => {
     defaultValues: {
       name: '',
       color: '#d9458c',
-      id: 0,
     },
   });
 
@@ -40,7 +39,7 @@ export const AddCarForm = () => {
 
   return (
     <Form {...form}>
-      <form className={'p-4 flex flex-row gap-3 justify-center'} onSubmit={() => form.handleSubmit(onSubmit)}>
+      <form className={'p-4 flex flex-row gap-3 justify-center'} onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
         <FormField
           name={'name'}
           control={form.control}
