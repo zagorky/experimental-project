@@ -4,33 +4,27 @@ import { useSWRConfig } from 'swr';
 import { fetcher } from '~utils/fetcher.ts';
 import { ASYNC_RACE_GARAGE_ENDPOINT } from '~config/endpoints.ts';
 import { requestConfig } from '~config/request-config.ts';
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '~components/ui/dialog.tsx';
+import { CarForm } from '~components/car-form.tsx';
+import { useState } from 'react';
 
 export const Car = (carData: CarType) => {
   const { name, id, color } = carData;
-  const { mutate } = useSWRConfig();
+  const { mutate: revalidate } = useSWRConfig();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const onDelete = async (id: number) => {
-    try {
-      await fetcher(ASYNC_RACE_GARAGE_ENDPOINT + `/${id.toString()}`, requestConfig.delete);
-      await mutate(ASYNC_RACE_GARAGE_ENDPOINT);
-    } catch (error) {
-      console.error('Failed to delete car:', error);
-    }
-  };
-
-  const onEdit = async (data: CarType) => {
-    try {
-      await fetcher(
-        ASYNC_RACE_GARAGE_ENDPOINT + `/${data.id.toString()}`,
-        requestConfig.patch({
-          name: data.name,
-          color: data.color,
-        }),
-      );
-      await mutate(ASYNC_RACE_GARAGE_ENDPOINT);
-    } catch (error) {
-      console.error('Failed to update car:', error);
-    }
+  const onDelete = (id: number) => {
+    void fetcher(ASYNC_RACE_GARAGE_ENDPOINT + `/${id.toString()}`, requestConfig.delete)
+      .then(() => {
+        void revalidate(ASYNC_RACE_GARAGE_ENDPOINT);
+      })
+      .catch((e: unknown) => {
+        if (e instanceof Error) {
+          console.error(e.message);
+        } else {
+          console.error(e);
+        }
+      });
   };
 
   return (
@@ -40,20 +34,32 @@ export const Car = (carData: CarType) => {
           className={'cursor-pointer'}
           type="button"
           onClick={() => {
-            void onDelete(id);
+            onDelete(id);
           }}
         >
           ✖️
         </button>
-        <button
-          className={'cursor-pointer'}
-          type="button"
-          onClick={() => {
-            void onEdit({ name, color, id });
-          }}
-        >
-          ✏️
-        </button>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogTrigger
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            ✏️
+          </DialogTrigger>
+          <DialogContent>
+            <DialogTitle>Edit {name}</DialogTitle>
+            <DialogDescription>You can change name or color of this car</DialogDescription>
+            <CarForm
+              method={'patch'}
+              purpose={'Update Car'}
+              id={id}
+              onSuccess={() => {
+                setIsOpen(false);
+              }}
+            />
+          </DialogContent>
+        </Dialog>
         <h3>{name}</h3>
       </div>
       <CarSvg color={color} />
