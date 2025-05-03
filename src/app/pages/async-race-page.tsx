@@ -15,9 +15,14 @@ export const AsyncRacePage = () => {
     <div>
       <h2 className={'font-bold text-pink-700 text-2xl'}>Garage</h2>
       {isLoading && <Loader />}
-      {error && <h3>Error</h3>}
-      <CarForm method={'post'} purpose={'Add Car'} />
-      <GenerateCarsButton />
+      {error ? (
+        <h3>Error</h3>
+      ) : (
+        <>
+          <CarForm method={'post'} purpose={'Add Car'} />
+          <GenerateCarsButton />
+        </>
+      )}
       {!data ? (
         <div>Nothing to render</div>
       ) : (
