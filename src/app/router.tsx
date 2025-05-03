@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import { Layout } from '~components/layouts/layout.tsx';
 import { pathes } from '~config/routes-config.ts';
-import { Loader } from '~components/ui/loader.tsx';
 
 export const AppRouter = createBrowserRouter([
   {
@@ -9,7 +8,6 @@ export const AppRouter = createBrowserRouter([
     children: [
       {
         path: pathes.main,
-        HydrateFallback: Loader,
         async lazy() {
           const { MainPage } = await import('./pages/main-page.tsx');
 
@@ -20,7 +18,6 @@ export const AppRouter = createBrowserRouter([
       },
       {
         path: pathes.state,
-        HydrateFallback: Loader,
         async lazy() {
           const { UseStatePage } = await import('./pages/use-state.page.tsx');
 
@@ -31,7 +28,6 @@ export const AppRouter = createBrowserRouter([
       },
       {
         path: pathes.signals,
-        HydrateFallback: Loader,
         async lazy() {
           const { SignalsPage } = await import('./pages/signals-page.tsx');
 
@@ -42,7 +38,6 @@ export const AppRouter = createBrowserRouter([
       },
       {
         path: pathes.shadcn,
-        HydrateFallback: Loader,
         async lazy() {
           const { ShadcnPage } = await import('./pages/shadcn-page.tsx');
 
@@ -53,7 +48,6 @@ export const AppRouter = createBrowserRouter([
       },
       {
         path: pathes.posts,
-        HydrateFallback: Loader,
         async lazy() {
           const { PostsPage } = await import('./pages/posts-page.tsx');
 
@@ -64,7 +58,6 @@ export const AppRouter = createBrowserRouter([
       },
       {
         path: pathes['async-race'],
-        HydrateFallback: Loader,
         async lazy() {
           const { AsyncRacePage } = await import('./pages/async-race-page.tsx');
 
