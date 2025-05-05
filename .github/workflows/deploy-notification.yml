@@ -1,0 +1,51 @@
+name: Deploy Discord notifier
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Wait for Netlify deploy
+        id: netlify
+        uses: jakejarvis/wait-for-netlify-action@v1
+        with:
+          site_id: ${{ secrets.NETLIFY_SITE_ID }}
+          token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          timeout: '600'
+
+      - name: Send Discord notification
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{
+              "username": "Deploy Bot",
+              "avatar_url": "https://www.netlify.com/img/press/logos/logomark.png",
+              "embeds": [{
+                "title": "🚀 Новый деплой",
+                "color": 5763719,
+                "fields": [
+                  {"name": "Проект", "value": "${{ steps.netlify.outputs.name }}"},
+                  {"name": "Статус", "value": "Успешно", "inline": true},
+                  {"name": "Ветка", "value": "${{ github.ref_name }}", "inline": true},
+                  {"name": "Ссылка", "value": "[Открыть сайт](${{ steps.netlify.outputs.url }})"},
+                  {"name": "Логи", "value": "[Просмотреть](${{ steps.netlify.outputs.admin_url }})"}
+                ],
+                "timestamp": "${{ steps.netlify.outputs.created_at }}"
+              }]
+            }' \
+            "${{ secrets.DISCORD_WEBHOOK_URL }}"
+
+      - name: Handle deploy failure
+        if: failure()
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{
+              "content": "❌ Деплой не удался! \nВетка: ${{ github.ref_name }}\nКоммит: ${{ github.sha }}"
+            }' \
+            "${{ secrets.DISCORD_WEBHOOK_URL }}"
