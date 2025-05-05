@@ -1,16 +1,17 @@
 import { createBrowserRouter } from 'react-router';
 import { Layout } from '~components/layouts/layout.tsx';
 import { pathes } from '~config/routes-config.ts';
+import { PageSkeleton } from '~components/page-skeleton.tsx';
 
 export const AppRouter = createBrowserRouter([
   {
     element: <Layout />,
+    HydrateFallback: PageSkeleton,
     children: [
       {
         path: pathes.main,
         async lazy() {
           const { MainPage } = await import('./pages/main-page.tsx');
-
           return {
             element: <MainPage />,
           };
