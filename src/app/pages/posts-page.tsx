@@ -9,7 +9,7 @@ import { Label } from '~components/ui/label.tsx';
 // import { PageSkeleton } from '~components/page-skeleton.tsx';
 
 export const PostsPage = () => {
-  const { data, error } = useSWR<PostType[], ZodError>(POSTS_ENDPOINT, fetcher);
+  const { data, error, isLoading } = useSWR<PostType[], ZodError>(POSTS_ENDPOINT, fetcher);
   const [query, setQuery] = useState('');
   const [isPending, startTransition] = useTransition();
   const deferredQuery = useDeferredValue(query);
