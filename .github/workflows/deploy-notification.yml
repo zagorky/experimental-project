@@ -38,7 +38,7 @@ jobs:
                 "timestamp": "${{ steps.netlify.outputs.created_at }}"
               }]
             }' \
-            "${{ secrets.DISCORD_WEBHOOK_URL }}"
+            "${{ secrets.DISCORD_DEPLOY_WEBHOOK_URL }}"
 
       - name: Handle deploy failure
         if: failure()
@@ -48,4 +48,4 @@ jobs:
             -d '{
               "content": "❌ Деплой не удался! \nВетка: ${{ github.ref_name }}\nКоммит: ${{ github.sha }}"
             }' \
-            "${{ secrets.DISCORD_WEBHOOK_URL }}"
+            "${{ secrets.DISCORD_DEPLOY_WEBHOOK_URL }}"
