@@ -1,10 +1,11 @@
 name: PR Discord Notifier
 on:
   pull_request:
-    types: [opened, closed, reopened]
+    types: [opened,  reopened]
 
 jobs:
   notify-discord:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - name: Send Discord Notification
