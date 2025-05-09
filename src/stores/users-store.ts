@@ -8,11 +8,13 @@ interface UserStoreType {
   users: Map<string, UserType>;
   addUser: (user: UserType) => void;
   error: z.ZodError<UserFormDataType> | null;
+  isLoggedIn: boolean;
 }
 
 export const useUsersStore = create<UserStoreType>()(
   devtools(
     (set) => ({
+      isLoggedIn: false,
       users: new Map(),
       error: null,
       addUser: (userData) => {
