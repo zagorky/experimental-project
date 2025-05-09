@@ -1,8 +1,9 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import path from 'node:path';
 import react from '@vitejs/plugin-react-swc';
 import tailwindcss from '@tailwindcss/vite';
-import {fileURLToPath} from "node:url";
+import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -10,7 +11,6 @@ export default defineConfig({
   base: '/',
   resolve: {
     alias: {
-
       '~': path.resolve(__dirname, './src'),
       '~components': path.resolve(__dirname, './src/components'),
       '~config': path.resolve(__dirname, './src/config'),
@@ -22,8 +22,6 @@ export default defineConfig({
       '~types': path.resolve(__dirname, './src/types'),
       '~utils': path.resolve(__dirname, './src/utils'),
       '~app': path.resolve(__dirname, './src/app'),
-
-
     },
   },
   build: {
@@ -35,5 +33,5 @@ export default defineConfig({
       localsConvention: 'camelCaseOnly',
     },
   },
-  plugins: [react(), tailwindcss(),],
+  plugins: [react(), tailwindcss()],
 });
