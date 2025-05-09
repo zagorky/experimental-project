@@ -2,9 +2,9 @@ name: SecondChapter-Node.js CI
 
 on:
   push:
-    branches: [ "develop", "master", "release/sprint-*" ]
+    branches: [ "develop", "master", "release/sprint-*", "test"]
   pull_request:
-    branches: [ "develop", "master", "release/sprint-*" ]
+    branches: [ "develop", "master", "release/sprint-*", "test" ]
 
 jobs:
   test-and-build:
