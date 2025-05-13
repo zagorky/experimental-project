@@ -30,30 +30,30 @@ export const SignUpForm = () => {
       <CardContent>
         <Form {...form}>
           <form>
-            <div className="flex flex-col gap-6 ">
-              <div className="flex flex-row justify-center gap-2">
-                <div className="grid gap-2">
+            <div className="flex flex-col  gap-4 ">
+              <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
+                <div className="w-full">
                   <EmailField />
                 </div>
-                <div className="grid gap-2">
+                <div className="w-full">
                   <PasswordField />
                 </div>
               </div>
 
-              <div className="flex flex-row justify-center gap-2">
-                <div className="grid gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
+                <div className="w-full">
                   <NameField />
                 </div>
-                <div className="grid gap-2">
+                <div className="w-full">
                   <NameField name="last-name" placeholder="Doe" label={'Last Name'} />
                 </div>
               </div>
 
-              <div className="flex flex-row justify-center gap-2">
-                <div className="grid gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
+                <div className="w-full">
                   <AddressField />
                 </div>
-                <div className="grid gap-2">
+                <div className="w-full">
                   <AddressField name="billing-address" label={'Billing Address'} />
                 </div>
               </div>
