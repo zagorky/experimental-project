@@ -1,5 +1,7 @@
 import { SignalForm } from '~components/signal-form.tsx';
 
-export const SignalsPage = () => {
+const SignalsPage = () => {
   return <SignalForm />;
 };
+
+export default SignalsPage;

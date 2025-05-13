@@ -1,9 +1,11 @@
 import { UseStateForm } from '~components/use-state-form.tsx';
 
-export const UseStatePage = () => {
+const UseStatePage = () => {
   return (
     <>
       <UseStateForm />
     </>
   );
 };
+
+export default UseStatePage;

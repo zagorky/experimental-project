@@ -1,6 +1,6 @@
 import { withDataTestId } from '~utils/helpers.ts';
 
-export const MainPage = () => {
+const MainPage = () => {
   return (
     <div>
       <h1 className={'font-bold text-pink-700 text-2xl'} {...withDataTestId('main-page-header')}>
@@ -10,3 +10,5 @@ export const MainPage = () => {
     </div>
   );
 };
+
+export default MainPage;
