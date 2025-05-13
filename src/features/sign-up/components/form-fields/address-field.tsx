@@ -1,7 +1,8 @@
-import { Input } from '~components/ui/input';
-import { withDataTestId } from '~utils/helpers';
-import { useFormContext } from 'react-hook-form';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '~components/ui/form.tsx';
+import { StreetField } from '~features/sign-up/components/form-fields/street-field.tsx';
+import { CityField } from '~features/sign-up/components/form-fields/city-field.tsx';
+import { FormLabel } from '~components/ui/form.tsx';
+import { CountryField } from '~features/sign-up/components/form-fields/country-field.tsx';
+import { PostalCodeField } from '~features/sign-up/components/form-fields/post-code-field.tsx';
 
 interface AddressFieldProps {
   name?: string;
@@ -9,36 +10,14 @@ interface AddressFieldProps {
   placeholder?: string;
 }
 
-export const AddressField = ({
-  name = 'shipping-address',
-  label = 'Shipping Address',
-  placeholder = '',
-}: AddressFieldProps) => {
-  const form = useFormContext();
-
+export const AddressField = ({ label = 'Shipping Address' }: AddressFieldProps) => {
   return (
-    <FormField
-      control={form.control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <div className="grid gap-3">
-            <FormLabel className={'text-left'}>{label}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder={placeholder}
-                autoComplete="username"
-                {...field}
-                type="text"
-                {...withDataTestId(`${name}-input`)}
-              />
-            </FormControl>
-            <div className={'h-6 w-[325px]'}>
-              <FormMessage />
-            </div>
-          </div>
-        </FormItem>
-      )}
-    />
+    <>
+      <FormLabel>{label}</FormLabel>
+      <CountryField />
+      <StreetField />
+      <CityField />
+      <PostalCodeField />
+    </>
   );
 };

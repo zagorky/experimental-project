@@ -9,6 +9,7 @@ import { EmailField } from '~features/sign-up/components/form-fields/emailField.
 import { PasswordField } from '~features/sign-up/components/form-fields/passwordField.tsx';
 import { NameField } from '~features/sign-up/components/form-fields/name-field.tsx';
 import { AddressField } from '~features/sign-up/components/form-fields/address-field.tsx';
+import { DateOfBirthField } from '~features/sign-up/components/form-fields/date-of-birth-field.tsx';
 
 export const SignUpForm = () => {
   const form = useForm<LoginFormFieldValues>({
@@ -22,7 +23,7 @@ export const SignUpForm = () => {
   });
 
   return (
-    <Card className="m-auto mt-10 w-full max-w-4xl">
+    <Card className="m-auto mt-10 w-full max-w-5xl">
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
         <CardDescription>Enter your email below to login to your account</CardDescription>
@@ -31,7 +32,7 @@ export const SignUpForm = () => {
         <Form {...form}>
           <form>
             <div className="flex flex-col  gap-4 ">
-              <div className="flex flex-col md:flex-row justify-center gap-2">
+              <div className="flex flex-col lg:flex-row justify-center gap-2">
                 <div className="grid gap-2 w-full">
                   <EmailField />
                 </div>
@@ -40,21 +41,24 @@ export const SignUpForm = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row justify-center gap-2">
+              <div className="flex flex-col lg:flex-row justify-center gap-2">
                 <div className="grid gap-2 w-full">
                   <NameField />
                 </div>
                 <div className="grid gap-2 w-full">
                   <NameField name="last-name" placeholder="Doe" label={'Last Name'} />
                 </div>
+                <div className="grid gap-2 w-full">
+                  <DateOfBirthField />
+                </div>
               </div>
 
-              <div className="flex flex-col md:flex-row justify-center gap-2">
+              <div className="flex flex-col lg:flex-row justify-center gap-2">
                 <div className="grid gap-2 w-full">
                   <AddressField />
                 </div>
                 <div className="grid gap-2 w-full">
-                  <AddressField name="billing-address" label={'Billing Address'} />
+                  <AddressField label="Billing Address" />
                 </div>
               </div>
 
