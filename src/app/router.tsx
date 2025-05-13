@@ -6,7 +6,6 @@ import { AsyncRacePage, MainPage, PostsPage, ShadcnPage, SignalsPage, SignUpPage
 export const AppRouter = createBrowserRouter([
   {
     element: <Layout />,
-
     children: [
       {
         path: routes.main.path,

@@ -3,23 +3,20 @@ import type { ComponentProps } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '~components/ui/button/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~components/ui/card';
-import { EmailField } from '~components/ui/form-fields/emailField';
-import { PasswordField } from '~components/ui/form-fields/passwordField';
-import { Form } from '~components/ui/form/form';
-import { navigationRoutes } from '~config/navigation';
-import { useAuth } from '~features/sign-in/hooks/useAuth';
+
 import { loginSchema } from '~features/sign-in/types/schemas';
-import { cn } from '~lib/utilities';
+import { cn } from '~lib/utils';
 import { withDataTestId } from '~utils/helpers';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
-import { toast } from 'sonner';
+import { routes } from '~config/routes-config.ts';
+import { Form } from '~components/ui/form.tsx';
+import { EmailField } from '~features/sign-up/components/form-fields/emailField.tsx';
+import { PasswordField } from '~features/sign-up/components/form-fields/passwordField.tsx';
+import { Button } from '~components/ui/button.tsx';
 
 export const SignInForm = ({ className, ...props }: ComponentProps<'div'>) => {
-  const { login, isLoading, errorAuth, setErrorAuth, logout } = useAuth();
   const form = useForm<LoginFormFieldValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -30,25 +27,8 @@ export const SignInForm = ({ className, ...props }: ComponentProps<'div'>) => {
     reValidateMode: 'onChange',
   });
 
-  useEffect(() => {
-    const subscribe = form.watch(() => {
-      if (errorAuth) {
-        setErrorAuth(null);
-      }
-    });
-
-    return () => {
-      subscribe.unsubscribe();
-    };
-  }, [errorAuth, form, setErrorAuth]);
-
-  const handleSubmit: SubmitHandler<LoginFormFieldValues> = async (data) => {
-    logout();
-    const result = await login(data);
-
-    if (result.success) {
-      toast.success('Success! Welcome back!');
-    }
+  const handleSubmit: SubmitHandler<LoginFormFieldValues> = (data) => {
+    console.log(data);
   };
 
   return (
@@ -64,16 +44,14 @@ export const SignInForm = ({ className, ...props }: ComponentProps<'div'>) => {
               <div className="flex flex-col gap-6">
                 <EmailField />
                 <PasswordField />
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? 'Loading...' : 'Submit'}
+                <Button type="submit" className="w-full">
+                  Submit
                 </Button>
-                <div className="h-6 w-[325px]">
-                  {errorAuth instanceof Error && <div className="text-red-500">{errorAuth.message}</div>}
-                </div>
+
                 <div className="mt-4 text-center text-sm">
                   Don&apos;t have an account?{' '}
                   <Link
-                    to={navigationRoutes.signup.path}
+                    to={routes.signup.path}
                     className="underline underline-offset-4"
                     {...withDataTestId('redirection-link')}
                   >
