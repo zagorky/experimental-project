@@ -1,6 +1,9 @@
-import * as React from 'react';
-import * as LabelPrimitive from '@radix-ui/react-label';
+import type * as LabelPrimitive from '@radix-ui/react-label';
+
 import { Slot } from '@radix-ui/react-slot';
+import { assertIsNonNullable } from '~utils/helpers';
+import * as React from 'react';
+import { useMemo } from 'react';
 import {
   Controller,
   FormProvider,
@@ -11,8 +14,8 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 
-import { cn } from '~/lib/utils';
 import { Label } from '~/components/ui/label';
+import { cn } from '~/lib/utils';
 
 const Form = FormProvider;
 
@@ -23,20 +26,22 @@ interface FormFieldContextValue<
   name: TName;
 }
 
-const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFieldContextValue);
+const formFieldContextDefaultValue: FormFieldContextValue = { name: '<<unknown>>' };
 
-const FormField = <
+const FormFieldContext = React.createContext<FormFieldContextValue>(formFieldContextDefaultValue);
+
+function FormField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: ControllerProps<TFieldValues, TName>) => {
+>({ ...props }: ControllerProps<TFieldValues, TName>) {
+  const fieldContext = useMemo(() => ({ name: props.name }), [props.name]);
+
   return (
-    <FormFieldContext value={{ name: props.name }}>
+    <FormFieldContext value={fieldContext}>
       <Controller {...props} />
     </FormFieldContext>
   );
-};
+}
 
 const useFormField = () => {
   const fieldContext = React.use(FormFieldContext);
@@ -45,10 +50,7 @@ const useFormField = () => {
   const formState = useFormState({ name: fieldContext.name });
   const fieldState = getFieldState(fieldContext.name, formState);
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!fieldContext) {
-    throw new Error('useFormField should be used within <FormField>');
-  }
+  assertIsNonNullable(fieldContext, 'useFormField should be used within <FormField>');
 
   const { id } = itemContext;
 
@@ -66,13 +68,16 @@ interface FormItemContextValue {
   id: string;
 }
 
-const FormItemContext = React.createContext<FormItemContextValue>({} as FormItemContextValue);
+const formItemContextDefaultValue: FormItemContextValue = { id: '<<unknown>>' };
+
+const FormItemContext = React.createContext<FormItemContextValue>(formItemContextDefaultValue);
 
 function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
   const id = React.useId();
+  const contextValue = useMemo(() => ({ id }), [id]);
 
   return (
-    <FormItemContext value={{ id }}>
+    <FormItemContext value={contextValue}>
       <div data-slot="form-item" className={cn('grid gap-2', className)} {...props} />
     </FormItemContext>
   );
@@ -85,7 +90,7 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPri
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={cn('data-[error=true]:text-destructive', className)}
+      className={cn('font-heading', className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -99,7 +104,7 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
     <Slot
       data-slot="form-control"
       id={formItemId}
-      aria-describedby={!error ? formDescriptionId : `${formDescriptionId} ${formMessageId}`}
+      aria-describedby={error ? `${formDescriptionId} ${formMessageId}` : formDescriptionId}
       aria-invalid={!!error}
       {...props}
     />
@@ -113,7 +118,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn('text-muted-foreground text-sm', className)}
+      className={cn('font-base text-foreground text-sm', className)}
       {...props}
     />
   );
@@ -128,7 +133,12 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   }
 
   return (
-    <p data-slot="form-message" id={formMessageId} className={cn('text-destructive text-sm', className)} {...props}>
+    <p
+      data-slot="form-message"
+      id={formMessageId}
+      className={cn('font-base text-sm text-red-500', className)}
+      {...props}
+    >
       {body}
     </p>
   );

@@ -1,10 +1,11 @@
 name: PR Discord Notifier
 on:
   pull_request:
-    types: [opened, closed, reopened]
+    types: [opened,  reopened, ready_for_review]
 
 jobs:
   notify-discord:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - name: Send Discord Notification
@@ -12,6 +13,6 @@ jobs:
           curl -X POST \
             -H "Content-Type: application/json" \
             -d '{
-              "content": "🚀 PR ${{ github.event.action }}: **${{ github.event.pull_request.title }}**\n🔗 ${{ github.event.pull_request.html_url }}\n👤 Автор: ${{ github.event.pull_request.user.login }}"
+              "content": "🚀 PR ${{ github.event.action }}: **${{ github.event.pull_request.title }}**\n🔗 ${{ github.event.pull_request.html_url }}\n👤 Author: ${{ github.event.pull_request.user.login }}"
             }' \
             "https://discord.com/api/webhooks/1368326356240302130/uE7UfKVmoQzdC_B6IPS-uVEOM9TperooK5rTZJnLisVj1ptxj6ADcdEyNg6zts8EGLSh"
