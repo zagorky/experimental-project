@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import { Layout } from '~components/layouts/layout.tsx';
-import { pathes } from '~config/routes-config.ts';
-import { Skeleton } from '~components/ui/skeleton.tsx';
+import { routes } from '~config/routes-config.ts';
+import { AsyncRacePage, MainPage, PostsPage, ShadcnPage, SignalsPage, SignUpPage, UseStatePage } from '~app/lazy.tsx';
 
 export const AppRouter = createBrowserRouter([
   {
@@ -9,69 +9,32 @@ export const AppRouter = createBrowserRouter([
 
     children: [
       {
-        path: pathes.main,
-        HydrateFallback: Skeleton,
-        async lazy() {
-          const { MainPage } = await import('./pages/main-page.tsx');
-          return {
-            element: <MainPage />,
-          };
-        },
+        path: routes.main.path,
+        element: <MainPage />,
       },
       {
-        path: pathes.state,
-        HydrateFallback: Skeleton,
-        async lazy() {
-          const { UseStatePage } = await import('./pages/use-state.page.tsx');
-
-          return {
-            element: <UseStatePage />,
-          };
-        },
+        path: routes.state.path,
+        element: <UseStatePage />,
       },
       {
-        path: pathes.signals,
-        HydrateFallback: Skeleton,
-        async lazy() {
-          const { SignalsPage } = await import('./pages/signals-page.tsx');
-
-          return {
-            element: <SignalsPage />,
-          };
-        },
+        path: routes.signals.path,
+        element: <SignalsPage />,
       },
       {
-        path: pathes.shadcn,
-        HydrateFallback: Skeleton,
-        async lazy() {
-          const { ShadcnPage } = await import('./pages/shadcn-page.tsx');
-
-          return {
-            element: <ShadcnPage />,
-          };
-        },
+        path: routes.shadcn.path,
+        element: <ShadcnPage />,
       },
       {
-        path: pathes.posts,
-        HydrateFallback: Skeleton,
-        async lazy() {
-          const { PostsPage } = await import('./pages/posts-page.tsx');
-
-          return {
-            element: <PostsPage />,
-          };
-        },
+        path: routes.posts.path,
+        element: <PostsPage />,
       },
       {
-        path: pathes['async-race'],
-        HydrateFallback: Skeleton,
-        async lazy() {
-          const { AsyncRacePage } = await import('./pages/async-race-page.tsx');
-
-          return {
-            element: <AsyncRacePage />,
-          };
-        },
+        path: routes.async.path,
+        element: <AsyncRacePage />,
+      },
+      {
+        path: routes.signup.path,
+        element: <SignUpPage />,
       },
     ],
   },

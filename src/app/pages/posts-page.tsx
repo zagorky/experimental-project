@@ -3,18 +3,17 @@ import { POSTS_ENDPOINT } from '~config/endpoints.ts';
 import { fetcher } from '~utils/fetcher.ts';
 import { PostType } from '~types/types.ts';
 import { ZodError } from 'zod';
-import { useDeferredValue, useState, useTransition } from 'react';
+import { ChangeEvent, useDeferredValue, useState, useTransition } from 'react';
 import { Input } from '~components/ui/input.tsx';
 import { Label } from '~components/ui/label.tsx';
-import { Skeleton } from '~components/ui/skeleton.tsx';
 
-export const PostsPage = () => {
-  const { data, error, isLoading } = useSWR<PostType[], ZodError>(POSTS_ENDPOINT, fetcher);
+const PostsPage = () => {
+  const { data, error } = useSWR<PostType[], ZodError>(POSTS_ENDPOINT, fetcher);
   const [query, setQuery] = useState('');
   const [isPending, startTransition] = useTransition();
   const deferredQuery = useDeferredValue(query);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     startTransition(() => {
       setQuery(event.target.value);
     });
@@ -31,7 +30,6 @@ export const PostsPage = () => {
   return (
     <>
       <h2 className={'font-bold text-pink-700 text-2xl'}>List of Posts</h2>
-      {isLoading && <Skeleton />}
       {error && <h3>Error</h3>}
       {!data ? (
         <div>Nothing to render</div>
@@ -44,7 +42,7 @@ export const PostsPage = () => {
           {isPending ? (
             <p>Loading...</p>
           ) : (
-            <ul className={'max-w-150'}>
+            <ul className={'max-w-250'}>
               {filteredPosts.map((post) => {
                 return (
                   <li key={post.id}>
@@ -60,3 +58,5 @@ export const PostsPage = () => {
     </>
   );
 };
+
+export default PostsPage;
