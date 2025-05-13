@@ -40,9 +40,6 @@ export const SignUpForm = () => {
                       <FormControl>
                         <Input {...field} id="email" type="email" placeholder="m@example.com" />
                       </FormControl>
-                      <div className={'h-6 w-[325px]'}>
-                        <FormMessage />
-                      </div>
                     </FormItem>
                   )}
                 />

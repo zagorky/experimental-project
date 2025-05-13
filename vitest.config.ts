@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config';
 import { mergeConfig } from 'vitest/config';
 import config from './vite.config';
 import react from '@vitejs/plugin-react-swc';
-import path from 'node:path';
+import * as path from 'node:path';
 
 export default mergeConfig(
   config,
