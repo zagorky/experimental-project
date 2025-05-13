@@ -15,10 +15,10 @@ export const routes = {
     path: '/shadcn',
     title: 'Shadcn Form',
   },
-  posts: {
-    path: '/posts',
-    title: 'Posts',
-  },
+  // posts: {
+  //   path: '/posts',
+  //   title: 'Posts',
+  // },
   async: {
     path: '/async',
     title: 'Async Race',

@@ -22,7 +22,7 @@ export const SignUpForm = () => {
   });
 
   return (
-    <Card className="m-auto mt-10 w-full ">
+    <Card className="m-auto mt-10 w-full max-w-4xl">
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
         <CardDescription>Enter your email below to login to your account</CardDescription>
@@ -31,29 +31,29 @@ export const SignUpForm = () => {
         <Form {...form}>
           <form>
             <div className="flex flex-col  gap-4 ">
-              <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
-                <div className="w-full">
+              <div className="flex flex-col md:flex-row justify-center gap-2">
+                <div className="grid gap-2 w-full">
                   <EmailField />
                 </div>
-                <div className="w-full">
+                <div className="grid gap-2 w-full">
                   <PasswordField />
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
-                <div className="w-full">
+              <div className="flex flex-col md:flex-row justify-center gap-2">
+                <div className="grid gap-2 w-full">
                   <NameField />
                 </div>
-                <div className="w-full">
+                <div className="grid gap-2 w-full">
                   <NameField name="last-name" placeholder="Doe" label={'Last Name'} />
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
-                <div className="w-full">
+              <div className="flex flex-col md:flex-row justify-center gap-2">
+                <div className="grid gap-2 w-full">
                   <AddressField />
                 </div>
-                <div className="w-full">
+                <div className="grid gap-2 w-full">
                   <AddressField name="billing-address" label={'Billing Address'} />
                 </div>
               </div>
